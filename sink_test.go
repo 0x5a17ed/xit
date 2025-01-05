@@ -6,6 +6,29 @@ import (
 	"testing"
 )
 
+func TestHead(t *testing.T) {
+	t.Run("empty", func(t *testing.T) {
+		v, ok := Head(Of[int]())
+		if ok || v != 0 {
+			t.Fatalf("%v, %v", v, ok)
+		}
+	})
+
+	t.Run("single", func(t *testing.T) {
+		v, ok := Head(Of[int](1))
+		if !ok || v != 1 {
+			t.Fatalf("%v, %v", v, ok)
+		}
+	})
+
+	t.Run("multiple", func(t *testing.T) {
+		v, ok := Head(Of[int](2, 3, 5))
+		if !ok || v != 2 {
+			t.Fatalf("%v, %v", v, ok)
+		}
+	})
+}
+
 func TestFind(t *testing.T) {
 	s, _ := Find(Windows(Generate(
 		0, 1),

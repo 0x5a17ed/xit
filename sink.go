@@ -14,6 +14,16 @@ func CollectSize[T any](seq iter.Seq[T], len int) []T {
 	return slices.AppendSeq(make([]T, 0, len), seq)
 }
 
+// Head returns the first value of seq.
+func Head[T any](seq iter.Seq[T]) (r T, ok bool) {
+	seq(func(v T) bool {
+		r = v
+		ok = true
+		return false
+	})
+	return r, ok
+}
+
 // Find returns the first value of seq for which f(value) returns
 // true.
 func Find[T any](seq iter.Seq[T], f func(T) bool) (r T, ok bool) {
