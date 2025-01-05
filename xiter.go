@@ -1,6 +1,6 @@
-// Package xiter provides iterator-related functionality compatible
+// Package xit provides iterator-related functionality compatible
 // with, but not requiring, Go 1.23.
-package xiter
+package xit
 
 import "iter"
 

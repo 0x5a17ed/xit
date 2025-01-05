@@ -1,4 +1,4 @@
-package xiter
+package xit
 
 import (
 	"iter"

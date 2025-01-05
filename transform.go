@@ -1,11 +1,11 @@
-package xiter
+package xit
 
 import (
 	"cmp"
 	"iter"
 	"slices"
 
-	"deedles.dev/xiter/internal/xheap"
+	"github.com/0x5a17ed/xit/internal/xheap"
 )
 
 // Map returns a Seq that yields the values of seq transformed via f.
