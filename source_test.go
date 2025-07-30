@@ -65,7 +65,8 @@ func TestStringFields(t *testing.T) {
 }
 
 func TestSliceChunkBy(t *testing.T) {
-	s := slices.Collect(SliceChunksFunc([]int{-1, -2, -3, 1, 2, 3, -1, -2, 3}, func(v int) int { return cmp.Compare(v, 0) }))
+	s := slices.Collect(SliceChunksFunc([]int{-1, -2, -3, 1, 2, 3, -1, -2, 3},
+		func(v int) int { return cmp.Compare(v, 0) }))
 	if !slices.EqualFunc(s, [][]int{{-1, -2, -3}, {1, 2, 3}, {-1, -2}, {3}}, slices.Equal) {
 		t.Fatal(s)
 	}
@@ -90,5 +91,17 @@ func TestScanBytes(t *testing.T) {
 	}
 	if c, err := r.ReadByte(); err != nil || c != ' ' {
 		t.Fatalf("%q, %v", c, err)
+	}
+}
+
+func TestRepeat(t *testing.T) {
+	s := slices.Collect(Limit(Repeat(123), 3))
+	if !slices.Equal(s, []int{123, 123, 123}) {
+		t.Fatal(s)
+	}
+
+	str := slices.Collect(Limit(Repeat("test"), 2))
+	if !slices.Equal(str, []string{"test", "test"}) {
+		t.Fatal(str)
 	}
 }

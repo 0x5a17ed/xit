@@ -284,3 +284,14 @@ func ScanRunes(r io.RuneScanner) iter.Seq2[rune, error] {
 		func() { r.UnreadRune() },
 	)
 }
+
+// Repeat returns an iterator that yields the given value infinitely.
+func Repeat[T any](val T) iter.Seq[T] {
+	return func(yield func(T) bool) {
+		for {
+			if !yield(val) {
+				return
+			}
+		}
+	}
+}
