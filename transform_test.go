@@ -273,3 +273,10 @@ func TestSortedFunc(t *testing.T) {
 		t.Fatal(s)
 	}
 }
+
+func TestInterleave(t *testing.T) {
+	s := slices.Collect(Interleave(Of(1, 2, 3), 0))
+	if !slices.Equal(s, []int{1, 0, 2, 0, 3}) {
+		t.Fatal(s)
+	}
+}

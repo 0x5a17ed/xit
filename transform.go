@@ -125,6 +125,12 @@ func Flatten[T any](seq iter.Seq[iter.Seq[T]]) iter.Seq[T] {
 	}
 }
 
+// FlatMap maps each element of a sequence to a sequence, then flattens the result.
+// It's equivalent to Flatten(Map(seq, f)).
+func FlatMap[T1, T2 any](seq iter.Seq[T1], f func(T1) iter.Seq[T2]) iter.Seq[T2] {
+	return Flatten(Map(seq, f))
+}
+
 // Zipped holds values from an iteration of a Seq returned by [Zip].
 type Zipped[T1, T2 any] struct {
 	V1  T1
@@ -487,4 +493,17 @@ func SortedFunc[T any](seq iter.Seq[T], compare func(T, T) int) iter.Seq[T] {
 			}
 		}
 	}
+}
+
+// Interleave returns a Seq that yields the elements of `seq`
+// with `sep` inserted between each element.
+func Interleave[T any](seq iter.Seq[T], sep T) iter.Seq[T] {
+	first := true
+	return FlatMap(seq, func(v T) iter.Seq[T] {
+		if first {
+			first = false
+			return Of(v)
+		}
+		return Of(sep, v)
+	})
 }
